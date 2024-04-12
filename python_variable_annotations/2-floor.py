@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-"""Simple operations with type annotations."""
-
+"""importing necessary module for flooring"""
 import math
+
+"""Simple operations with type annotations."""
 
 
 def floor(n: float) -> float:
