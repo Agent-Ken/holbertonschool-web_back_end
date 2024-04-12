@@ -2,6 +2,7 @@
 
 """Simple operations with type annotations."""
 
+
 import math
 
 def floor(n: float) -> float:
