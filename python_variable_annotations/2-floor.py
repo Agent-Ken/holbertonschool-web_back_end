@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""A type-annotated function concat that takes a string str1 and a string str2 as arguments"""
+"""A type-annotated function floor() that takes a float n and as argument"""
 
 import math
 
