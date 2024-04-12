@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""A type-annotated function floor() that takes a float n and as argument"""
+"""Simple operations with type annotations."""
 
 import math
 
