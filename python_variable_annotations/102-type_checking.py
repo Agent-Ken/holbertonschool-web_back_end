@@ -20,5 +20,4 @@ array: Tuple[int, int, int] = (12, 72, 91)
 
 zoom_2x = zoom_array(array)
 
-# changed to int from float to fix the error
 zoom_3x = zoom_array(array, 3)
