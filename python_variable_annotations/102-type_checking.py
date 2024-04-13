@@ -1,22 +1,19 @@
 #!/usr/bin/env python3
 """A simple Python module with type annotations."""
 
-from typing import Tuple, List, Any
+from typing import Tuple, List
 
 
-def zoom_array(lst: Tuple[Any, ...], factor: int = 2) -> List[Any]:
-    """Zoom in on an array by duplicating its elements.
-    Returns:
-        A list with the elements of the tuple duplicated 'factor' times.
-    """
-    zoomed_in: List[Any] = [
+def zoom_array(lst: Tuple, factor: int = 2) -> List:
+    """Zoom in on an array by duplicating its elements."""
+    zoomed_in: List = [
         item for item in lst
-        for i in range(factor)
-    ]
+        for _ in range(factor)
+         ]
     return zoomed_in
 
 
-array: Tuple[int, int, int] = (12, 72, 91)
+array = (12, 72, 91)
 
 zoom_2x = zoom_array(array)
 
