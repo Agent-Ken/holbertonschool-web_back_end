@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Caching"""
+""" LIFO caching """
 
 from base_caching import BaseCaching
 
 
 class LRUCache(BaseCaching):
-    """A class"""
+    """ LIFOCache class"""
 
     def __init__(self):
         super().__init__()
         self.lru_keys = []
 
     def put(self, key, item):
-        """A function"""
+        """ Add an item in the cache """
         if key and item:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                 discard = self.lru_keys.pop(0)
@@ -24,7 +24,7 @@ class LRUCache(BaseCaching):
             self.cache_data[key] = item
 
     def get(self, key):
-        """A function"""
+        """ Get an item by key """
         if key in self.cache_data:
             returned_value = self.cache_data[key]
             self.lru_keys.remove(key)
