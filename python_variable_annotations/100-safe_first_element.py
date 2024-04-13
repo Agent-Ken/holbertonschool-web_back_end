@@ -4,9 +4,9 @@
 from typing import Sequence, Any, Union
 
 
-def safe_first_element(lst: Sequence[Any]) -> Union[Any, None]:
+def safe_first_element(lst: Union[Sequence[Any], None]) -> Union[Any, None]:
     """Retrieve the first element of a sequence safely if it exists."""
-    if lst:
+    if lst and len(lst) > 0:
         return lst[0]
     else:
         return None
