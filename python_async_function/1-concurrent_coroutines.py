@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""This module contains an asynchronous coroutine that executes multiple wait_random coroutines."""
+"""This module contains an asynchronous coroutine."""
 
 import asyncio
 from typing import List
@@ -8,7 +8,7 @@ wait_random = __import__("0-basic_async_syntax").wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
-    """Execute multiple wait_random coroutines concurrently and return the delays."""
+    """Execute multiple wait_random coroutines concurrently"""
     delays: List[float] = []
     tasks: List = []
 
