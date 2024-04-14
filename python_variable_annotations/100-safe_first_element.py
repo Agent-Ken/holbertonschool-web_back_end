@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""A simple Python module with type annotations."""
+"""program to return the first 
+element of a sequence if it's not empty.
+"""
 
-from typing import Sequence, Any, Union
+from typing import Sequence, Any, Optional
 
 
-# Test test test
-def safe_first_element(lst: Sequence[Any]) -> Union[Any, None]:
-    """Retrieve the first element of a sequence safely if it exists."""
+def safe_first_element(lst: Sequence[Any]) -> Optional[Any]:
+    """Return the first element 
+    of a sequence if it's not empty.
+    """
     if lst:
         return lst[0]
-    else:
-        return None
+    return None
