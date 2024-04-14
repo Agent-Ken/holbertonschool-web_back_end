@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-''' Description: Augment the following code with the correct
-                 duck-typed annotations
-    Arguments: lst: Sequence[Any]
-'''
+"""
+This module provides a function to safely retrieve the first element of a sequence.
+"""
 
-from typing import Sequence, Any, Union
+from typing import Any, Optional, Sequence
 
 
-def safe_first_element(lst: Union[Sequence[Any], None]) -> Union[Any, None]:
-    ''' Return the first element of lst if there is any, otherwise None. '''
-    if lst and len(lst) > 0:
+def safe_first_element(lst: Sequence[Any]) -> Optional[Any]:
+    """Return the first element of a sequence or None if the sequence is empty."""
+    if lst:
         return lst[0]
     else:
         return None
