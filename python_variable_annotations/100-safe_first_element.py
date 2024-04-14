@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""program to return the first
-element of a sequence if it's not empty.
-"""
+''' Description: Augment the following code with the correct
+                 duck-typed annotations
+    Arguments: lst: Sequence[Any]
+'''
 
-from typing import Sequence, Any, Optional
+from typing import Sequence, Any, Union
 
 
-def safe_first_element(lst: Sequence[Any]) -> Optional[Any]:
-    """Return the first element
-    of a sequence if it's not empty.
-    """
-    if lst:
+def safe_first_element(lst: Union[Sequence[Any], None]) -> Union[Any, None]:
+    ''' Return the first element of lst if there is any, otherwise None. '''
+    if lst and len(lst) > 0:
         return lst[0]
-    return None
+    else:
+        return None
