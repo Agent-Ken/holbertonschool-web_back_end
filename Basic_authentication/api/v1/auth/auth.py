@@ -15,8 +15,8 @@ class Auth:
         """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """ Method returns True if the path is not in the list of excluded paths,
-        taking into account possible wildcards at the end of the paths.
+        """ Method returns True if the path
+        is not in the list of excluded paths
         """
 
         if path is None or not excluded_paths:
@@ -27,11 +27,9 @@ class Auth:
         for pattern in excluded_paths:
             pattern = pattern.strip('/')
             if pattern.endswith('*'):
-                # Remove the '*' and check if the path starts with the pattern
                 if path.startswith(pattern[:-1]):
                     return False
             else:
-                # Exact match
                 if path == pattern:
                     return False
 
