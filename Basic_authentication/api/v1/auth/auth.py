@@ -9,6 +9,7 @@ from typing import List, TypeVar
 class Auth:
     """ Auth class
     """
+
     def __init__(self):
         """ Auth class constructor
         """
@@ -17,6 +18,7 @@ class Auth:
         """ Method returns True
         if the path is not in the list
         """
+
         if path is None or excluded_paths is None or excluded_paths == []:
             return True
 
@@ -29,7 +31,10 @@ class Auth:
     def authorization_header(self, request=None) -> str:
         """ Method that returns None
         """
-        return request
+        if request is None:
+            return None
+
+        return request.headers.get('Authorization', None)
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ Method returns None
