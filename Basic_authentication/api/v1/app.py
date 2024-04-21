@@ -18,32 +18,35 @@ AUTH_TYPE = getenv('AUTH_TYPE')
 if AUTH_TYPE == "auth":
     from api.v1.auth.auth import Auth
     auth = Auth()
+elif AUTH_TYPE == "basic_auth":
+    from api.v1.auth.basic_auth import BasicAuth
+    auth = BasicAuth()
 
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Handler for not found error
+    """ Not found
     """
     return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """ Handler for unauthorized error
+    """ unauthorized
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
-    """ Handler for forbidden error
+    """ forbidden
     """
     return jsonify({"error": "Forbidden"}), 403
 
 
 @app.before_request
 def before_request() -> str:
-    """ Handler for all routes
+    """ before_request handler
     """
     if auth is None:
         return
