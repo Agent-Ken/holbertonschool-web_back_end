@@ -24,6 +24,12 @@ elif AUTH_TYPE == "basic_auth":
 elif AUTH_TYPE == "session_auth":
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
+elif AUTH_TYPE == "session_exp_auth":
+    from api.v1.auth.session_exp_auth import SessionExpAuth
+    auth = SessionExpAuth()
+elif AUTH_TYPE == "session_db_auth":
+    from api.v1.auth.session_db_auth import SessionDBAuth
+    auth = SessionDBAuth()
 
 
 @app.errorhandler(404)
@@ -66,10 +72,10 @@ def before_request() -> str:
     if (auth.authorization_header(request) is None and
             auth.session_cookie(request) is None):
         abort(401)
-    # if auth.current_user(request) is None:
-    abort(403)
+    if auth.current_user(request) is None:
+        abort(403)
 
-    # request.current_user = auth.current_user(request)
+    request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
