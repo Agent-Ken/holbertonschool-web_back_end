@@ -57,9 +57,9 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     '''Returns: connector to the db'''
     connection = mysql.connector.connection.MySQLConnection(
         user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
-        password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+        password=os.getenv('PERSONAL_DATA_DB_PASSWORD', 'dbpassw96'),
         host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
-        database=os.getenv("PERSONAL_DATA_DB_NAME")
+        database=os.getenv("PERSONAL_DATA_DB_NAME", "personal_hb_db")
     )
     return connection
 
@@ -67,13 +67,14 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 def main():
     db_connection = get_db()
     cursor = db_connection.cursor()
-    cursor.execute("SELECT * FROM users")
-    users_data = cursor.fetchall()
+    cursor.execute("SELECT * FROM users;")
+    fields = [i[0] for i in cursor.description]
 
     logger = get_logger()
 
-    for row in users_data:
-        logger.info(row)
+    for row in cursor:
+        str_row = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, fields))
+        logger.info(str_row.strip())
 
     cursor.close()
     db_connection.close()
