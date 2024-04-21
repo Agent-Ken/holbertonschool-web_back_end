@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" BasicAuth module
+""" BasicAuth module for the API
 """
 
 from api.v1.auth.auth import Auth, TypeVar
@@ -13,12 +13,12 @@ class BasicAuth(Auth):
     """
 
     def __init__(self):
-        """ Constructor of the class
+        """ Constructor of the BasicAuth class
         """
 
     def extract_base64_authorization_header(self,
                                             authorization_header: str) -> str:
-        """ method which returns None
+        """ extract_base64_authorization_header method that returns None
         """
         if (authorization_header is None or
             type(authorization_header) is not str or
@@ -30,7 +30,7 @@ class BasicAuth(Auth):
     def decode_base64_authorization_header(self,
                                            base64_authorization_header: str
                                            ) -> str:
-        """ method that returns None
+        """ decode_base64_authorization_header method that returns None
         """
         if (base64_authorization_header is None or
                 type(base64_authorization_header) is not str):
@@ -46,7 +46,7 @@ class BasicAuth(Auth):
     def extract_user_credentials(self,
                                  decoded_base64_authorization_header: str
                                  ) -> Tuple[str, str]:
-        """ method which returns None
+        """ extract_user_credentials method that returns None
         """
         if (decoded_base64_authorization_header is None or
                 type(decoded_base64_authorization_header) is not str or
@@ -58,7 +58,7 @@ class BasicAuth(Auth):
     def user_object_from_credentials(self,
                                      user_email: str, user_pwd: str
                                      ) -> TypeVar('User'):
-        """ authentication of the user """
+        """ user authentication"""
         if (user_email is None or
             type(user_email) is not str or
             user_pwd is None or
