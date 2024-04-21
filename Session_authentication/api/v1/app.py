@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Route module
+Route module for the API
 """
 from os import getenv
 from api.v1.views import app_views
@@ -28,46 +28,48 @@ elif AUTH_TYPE == "session_auth":
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found
+    """ Not found handler
     """
     return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """ unauthorized
+    """ unauthorized handler
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
-    """ forbidden
+    """ forbidden handler
     """
     return jsonify({"error": "Forbidden"}), 403
 
 
 @app.before_request
 def before_request() -> str:
-    """ handler for all routes
+    """ before_request handler for all routes
     """
     if auth is None:
         return
 
     pathes = ['/api/v1/status/',
               '/api/v1/unauthorized/',
-              '/api/v1/forbidden/'
+              '/api/v1/forbidden/',
+              "/api/v1/auth_session/login/"
               ]
 
     if not (auth.require_auth(request.path, pathes)):
         return
 
-    if (auth.authorization_header(request)) is None:
+    if (auth.authorization_header(request) is None and
+            auth.session_cookie(request) is None):
         abort(401)
-    if (auth.current_user(request)) is None:
-        abort(403)
+    # if auth.current_user(request) is None:
+    abort(403)
 
-    request.current_user = auth.current_user(request)
+    # request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
