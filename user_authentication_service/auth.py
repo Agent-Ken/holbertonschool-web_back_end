@@ -45,6 +45,18 @@ class Auth:
         user = self._db.add_user(email, hashed)
         return user
 
+    def valid_login(self, email: str, password: str) -> bool:
+        """
+        checks password
+        """
+        try:
+            usr = self._db.find_user_by(email=email)
+            password = password.encode("utf-8")
+            usr_pass = usr.hashed_password.encode("utf-8")
+            return bcrypt.checkpw(password, usr_pass)
+        except Exception:
+            return False
+
     def create_session(self, email: str) -> str:
         """
         Creates a session
