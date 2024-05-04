@@ -11,7 +11,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    """ Render a simple template with a welcome message. """
+    """ simple template with a
+    welcome message.
+    """
     return render_template('0-index.html')
 
 
