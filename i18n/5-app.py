@@ -25,9 +25,9 @@ babel = Babel(app)
 
 
 def get_user() -> Union[dict, None]:
-    """ Get the user of the dict
+    """ Get dict user
 
-        Return User
+        Retrieve user
     """
     login_user = request.args.get('login_as', None)
 
@@ -42,7 +42,7 @@ def get_user() -> Union[dict, None]:
 
 @babel.localeselector
 def get_locale():
-    """Get locale"""
+    """ language translation """
     lang = request.args.get("locale")
     if lang in app.config["LANGUAGES"]:
         return lang
@@ -51,8 +51,8 @@ def get_locale():
 
 
 @app.route('/')
-def home():
-    """ Home Page
+def index():
+    """ a simple template
     """
     return render_template('5-index.html')
 
