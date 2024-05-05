@@ -26,8 +26,7 @@ babel = Babel(app)
 
 
 def get_user() -> Union[dict, None]:
-    """ Get and retrieve the
-    user of the dict
+    """ get user of the dict
     """
     login_user = request.args.get('login_as', None)
 
