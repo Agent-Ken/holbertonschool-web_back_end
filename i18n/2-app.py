@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This module adds locale selection from requests.
+Flask app module
 """
 
 from flask import Flask, render_template, request
