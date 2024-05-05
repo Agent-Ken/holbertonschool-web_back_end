@@ -28,8 +28,8 @@ def get_locale():
 
 @app.route('/')
 def index():
-    """ a simple template with
-    a welcome message. """
+    """ a simple template
+    """
     return render_template('3-index.html')
 
 
