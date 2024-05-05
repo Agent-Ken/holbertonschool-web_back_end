@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Flask app module
-"""
+"""Flask app module"""
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
 from typing import Union
@@ -15,7 +14,7 @@ users = {
 
 
 class Config(object):
-    """ language translation """
+    """ Configuration class """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
@@ -26,7 +25,9 @@ babel = Babel(app)
 
 
 def get_user() -> Union[dict, None]:
-    """ get user of the dict
+    """ Get dict user
+
+        Retrieve user
     """
     login_user = request.args.get('login_as', None)
 
@@ -50,7 +51,7 @@ def get_locale():
 
 
 @app.route('/')
-def home():
+def index():
     """ a simple template
     """
     return render_template('5-index.html')
@@ -58,7 +59,7 @@ def home():
 
 @app.before_request
 def before_request():
-    """ get user bef req """
+    """Before request"""
     g.user = get_user()
 
 
