@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
-This module sets up Flask with Flask-Babel for internationalization
-and parametrizes templates using message IDs.
+This module sets up Flask with Flask-Babel
+for internationalization
 """
 
 from flask import Flask, render_template
 from flask_babel import Babel, _
 
 app = Flask(__name__)
+
 
 class Config:
     """ Configuration class """
