@@ -8,13 +8,13 @@ import requests
 from typing import Callable
 from functools import wraps
 
-
 redis_client = redis.Redis()
 
 
 def cache_with_expiry(expiry: int):
     """
-    cache the result of a function with an expiry time.
+    cache the result of a function
+    with an expiry time.
     """
     def decorator(func: Callable) -> Callable:
         @wraps(func)
@@ -22,7 +22,6 @@ def cache_with_expiry(expiry: int):
             cached_result = redis_client.get(f"cache:{url}")
             if cached_result:
                 return cached_result.decode('utf-8')
-
             result = func(url)
             redis_client.setex(f"cache:{url}", expiry, result)
 
@@ -34,7 +33,8 @@ def cache_with_expiry(expiry: int):
 @cache_with_expiry(10)
 def get_page(url: str) -> str:
     """
-    get_page func
+    Fetches the content of a URL.
+    Tracks the number of accesses to the URL.
     """
     redis_client.incr(f"count:{url}")
     response = requests.get(url)
