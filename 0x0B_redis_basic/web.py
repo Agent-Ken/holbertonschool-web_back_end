@@ -1,48 +1,38 @@
 #!/usr/bin/env python3
 """
-Retrieves web pages and caches their contents.
+A Redis basic module.
 """
 
-import requests
 import redis
-from functools import wraps
+import requests
+from typing import Callable
+
 
 redis_client = redis.Redis()
 
 
-def count_url_accesses(func):
+def cache_page(func: Callable[[str], str]) -> Callable[[str], str]:
     """
-    Counts the number of times URL is accessed.
+    Caches the result of a function for 10 secs
+    and tracks access count.
     """
-    @wraps(func)
-    def wrapper(url):
-        count_key = f"count:{url}"
-        redis_client.incr(count_key)
-        return func(url)
-    return wrapper
-
-def cache_page(func):
-    """
-    Caches the page content with expiration time.
-    """
-    @wraps(func)
-    def wrapper(url):
-        cache_key = f"cache:{url}"
-        cached_content = redis_client.get(cache_key)
-        
+    def wrapper(url: str) -> str:
+        cached_content = redis_client.get(f"cache:{url}")
         if cached_content:
             return cached_content.decode('utf-8')
+
+        content = func(url)
+        redis_client.setex(f"cache:{url}", 10, content)
+        redis_client.incr(f"count:{url}")
         
-        page_content = func(url)
-        redis_client.setex(cache_key, 10, page_content)
-        return page_content
+        return content
+
     return wrapper
 
-@count_url_accesses
 @cache_page
 def get_page(url: str) -> str:
     """
-    Gets HTML content of the URL.
+    Fetches the HTML content of URL.
     """
     response = requests.get(url)
     return response.text
