@@ -48,8 +48,7 @@ def replay(method: Callable):
 
     print(f"{method.__qualname__} was called {count} times:")
     for input, output in zip(inputs, outputs):
-        print(f"{method.__qualname__}(*{input.decode('utf-8')})\ 
-              -> {output.decode('utf-8')}")
+        print(f"{method.__qualname__}(*{input.decode('utf-8')}) -> {output.decode('utf-8')}")
 
 
 class Cache:
