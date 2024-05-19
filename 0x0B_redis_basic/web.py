@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-A Redis basic module.
+A basic Redis web.py module
 """
 
 import redis
@@ -12,29 +12,30 @@ from functools import wraps
 redis_client = redis.Redis()
 
 
-def count_calls(method: Callable) -> Callable:
+def cache_with_expiry(expiry: int):
     """
-    Caches the result of a function for 10 secs
-    and tracks access count.
+    cache the result of a function with an expiry time.
     """
-    @wraps(method)
-    def wrapper(url):
-        """ Wrapper decorator """
-        redis_client.incr(f"count:{url}")
-        cached_html = redis_client.get(f"cached:{url}")
-        if cached_html:
-            return cached_html.decode('utf-8')
+    def decorator(func: Callable) -> Callable:
+        @wraps(func)
+        def wrapper(url: str) -> str:
+            cached_result = redis_client.get(f"cache:{url}")
+            if cached_result:
+                return cached_result.decode('utf-8')
 
-        html = method(url)
-        redis_client.setex(f"cached:{url}", 10, html)
-        return html
+            result = func(url)
+            redis_client.setex(f"cache:{url}", expiry, result)
 
-    return wrapper
+            return result
+        return wrapper
+    return decorator
 
-@count_calls
+
+@cache_with_expiry(10)
 def get_page(url: str) -> str:
     """
-    Fetches the HTML content of URL.
+    get_page func
     """
+    redis_client.incr(f"count:{url}")
     response = requests.get(url)
     return response.text
