@@ -6,30 +6,32 @@ A Redis basic module.
 import redis
 import requests
 from typing import Callable
+from functools import wraps
 
 
 redis_client = redis.Redis()
 
 
-def cache_page(func: Callable[[str], str]) -> Callable[[str], str]:
+def count_calls(method: Callable) -> Callable:
     """
     Caches the result of a function for 10 secs
     and tracks access count.
     """
-    def wrapper(url: str) -> str:
-        cached_content = redis_client.get(f"cache:{url}")
-        if cached_content:
-            return cached_content.decode('utf-8')
-
-        content = func(url)
-        redis_client.setex(f"cache:{url}", 10, content)
+    @wraps(method)
+    def wrapper(url):
+        """ Wrapper decorator """
         redis_client.incr(f"count:{url}")
-        
-        return content
+        cached_html = redis_client.get(f"cached:{url}")
+        if cached_html:
+            return cached_html.decode('utf-8')
+
+        html = method(url)
+        redis_client.setex(f"cached:{url}", 10, html)
+        return html
 
     return wrapper
 
-@cache_page
+@count_calls
 def get_page(url: str) -> str:
     """
     Fetches the HTML content of URL.
