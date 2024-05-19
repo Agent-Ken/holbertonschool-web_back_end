@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-A Cache class for interaction with a Redis db
+A Redis basic module
 """
 import redis
 import uuid
