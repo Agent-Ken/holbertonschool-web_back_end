@@ -37,7 +37,7 @@ def call_history(method: Callable) -> Callable:
 
 def replay(method: Callable):
     """
-    Function that displays the call history of a function.
+    Displays the call history of a function.
     """
     redis_instance = method.__self__._redis
     inputs_key = method.__qualname__ + ":inputs"
@@ -48,7 +48,8 @@ def replay(method: Callable):
 
     print(f"{method.__qualname__} was called {count} times:")
     for input, output in zip(inputs, outputs):
-        print(f"{method.__qualname__}(*{input.decode('utf-8')}) -> {output.decode('utf-8')}")
+        print(f"{method.__qualname__}(*{input.decode('utf-8')})\ 
+              -> {output.decode('utf-8')}")
 
 
 class Cache:
