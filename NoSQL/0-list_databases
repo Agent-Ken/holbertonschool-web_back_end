@@ -1,0 +1,2 @@
+// Show all DB, can alse use `show dbs`
+db.adminCommand('listDatabases')
