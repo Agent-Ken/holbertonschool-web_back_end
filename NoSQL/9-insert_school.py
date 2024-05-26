@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Insert a document in Python
+"""Insert a document based on kwargs
 """
 
 import pymongo
