@@ -1,4 +1,4 @@
-// Only make promises you can keep 
+// function that resolves or rejects 
 function getResponseFromAPI() {
   return new Promise((resolve, reject) => {
     /* eslint-disable */
