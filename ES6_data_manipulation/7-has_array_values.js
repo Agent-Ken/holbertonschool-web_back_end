@@ -1,5 +1,10 @@
 const hasValuesFromArray = (set, arr) => {
-  return arr.every(value => set.has(value));
+  for (const item of arr) {
+    if (!set.has(item)) {
+      return false;
+    }
+  }
+  return true;
 };
 
 export default hasValuesFromArray;
